@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "mocha": "~2.1",
-    "supertest": "~0.15"
+    "superagent": "~0.21"
   },
   "engines": {
     "node": "^0.10"
