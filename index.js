@@ -40,13 +40,19 @@ function createServer(listen, opt) {
   var my = {
     keepalive: Number(options.keepalive) || 2000,
     callback: typeof options.callback == 'function' ? options.callback : false,
-    http: false
+    http: false,
+    https: false
   };
   if (typeof options.http == 'object') {
     my.http = {
       port: Number(options.http.port) || 3000,
       host: String(options.http.host || '127.0.0.1')
     };
+  }
+  if (typeof options.https == 'object') {
+    my.https = options.https;
+    my.https.port = Number(options.https.port) || 3000;
+    my.https.host = String(options.https.host || '127.0.0.1');
   }
 
   var hosts = Object.create(null);
@@ -88,8 +94,8 @@ function createServer(listen, opt) {
     return console.error(err.message);
   }).listen(listen);
 
-  if (my.http) {
-    require('http').createServer(function(req, res) {
+  if (my.http || my.https) {
+    web = function(req, res) {
 
       var out = '';
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -103,7 +109,14 @@ function createServer(listen, opt) {
         res.statusCode = 404;
       }
       return res.end(out);
-    }).listen(my.http.port, my.http.host);
+    };
+    if (my.http) {
+      require('http').createServer(web).listen(my.http.port, my.http.host);
+    }
+    if (my.https) {
+      require('https').createServer(my.https, web)
+          .listen(my.https.port, my.https.host);
+    }
   }
 
   return server;
