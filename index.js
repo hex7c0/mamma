@@ -95,7 +95,7 @@ function createServer(listen, opt) {
   }).listen(listen);
 
   if (my.http || my.https) {
-    web = function(req, res) {
+    var web = function(req, res) {
 
       var out = '';
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
