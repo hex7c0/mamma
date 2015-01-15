@@ -1,6 +1,6 @@
 'use strict';
 /**
- * @file server example
+ * @file client example
  * @module mamma
  * @package mamma
  * @subpackage examples
