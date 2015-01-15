@@ -42,7 +42,7 @@ var client = require('mamma').createClient;
  - `http` - **Object** Enable http interface *(default "disabled")*
    - `port` - **Boolean** Set Web port *(default "3000")*
    - `host` - **Boolean** Set Web host *(default "127.0.0.1")*
- - `https` - **Object** Enable https interface (extra options)[http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener] *(default "disabled")*
+ - `https` - **Object** Enable https interface [extra options](http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener) *(default "disabled")*
    - `port` - **Boolean** Set Web port *(default "3000")*
    - `host` - **Boolean** Set Web host *(default "127.0.0.1")*
 
@@ -50,7 +50,7 @@ var client = require('mamma').createClient;
 
 #### connect
 
- - `connect`- **Object** (createConnection)[http://nodejs.org/api/net.html#net_net_createconnection_options_connectionlistener] *(default "required")*
+ - `connect`- **Object** [createConnection](http://nodejs.org/api/net.html#net_net_createconnection_options_connectionlistener) *(default "required")*
 
 #### id
 
