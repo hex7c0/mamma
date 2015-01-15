@@ -46,7 +46,7 @@ var client = require('mamma').createClient;
    - `port` - **Number** Set Web port *(default "3000")*
    - `host` - **String** Set Web host *(default "127.0.0.1")*
 
-### createClient(connect,id,[options])
+### createClient(connect,id)
 
 #### connect
 
@@ -55,10 +55,6 @@ var client = require('mamma').createClient;
 #### id
 
  - `id`- **String** Child id for callback *(default "required")*
-
-#### options
-
- - `console`- **Boolean** Display error event to console *(default "false")*
 
 ## Examples
 
