@@ -35,13 +35,13 @@ function createServer(listen, opt) {
   if (!listen) {
     throw new TypeError('listen required');
   }
-
   var options = opt || Object.create(null);
   var my = {
     keepalive: Number(options.keepalive) || 2000,
     callback: typeof options.callback == 'function' ? options.callback : false,
     http: false,
-    https: false
+    https: false,
+    console: Boolean(options.console)
   };
   if (typeof options.http == 'object') {
     my.http = {
@@ -91,7 +91,10 @@ function createServer(listen, opt) {
   });
   server.on('error', function(err) {
 
-    return console.error(err.message);
+    if (my.console === true) {
+      console.error(err.message);
+    }
+    return;
   }).listen(listen);
 
   if (my.http || my.https) {
@@ -130,20 +133,28 @@ module.exports.createServer = createServer;
  * @function createClient
  * @param {Number|String} listen - listen type
  * @param {String} id - child id
+ * @param {Object} [opt] - various options. Check README.md
  * @return {Object}
  */
-function createClient(connect, id) {
+function createClient(connect, id, opt) {
 
   if (!connect || typeof connect != 'object') {
     throw new TypeError('connect required');
   } else if (!id) {
     throw new TypeError('id required');
   }
+  var options = opt || Object.create(null);
+  var my = {
+    console: Boolean(options.console)
+  };
 
   var client = net.createConnection(connect);
   client.on('error', function(err) {
 
-    return console.error(err.message);
+    if (my.console === true) {
+      console.error(err.message);
+    }
+    return;
   }).on('connect', function() {
 
     return client.write(String(id));
