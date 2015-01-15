@@ -86,9 +86,6 @@ function createServer(listen, opt) {
       // error hook [with client id]
       return my.callback !== false ? my.callback(had_error, sock._id) : null;
     });
-  }).on('error', function(err) {
-
-    return my.console === true ? console.error(err.message) : null;
   }).listen(listen);
 
   if (my.http || my.https) {
@@ -142,10 +139,7 @@ function createClient(connect, id, opt) {
     console: Boolean(options.console)
   };
 
-  var client = net.createConnection(connect).on('error', function(err) {
-
-    return my.console === true ? console.error(err.message) : null;
-  }).on('connect', function() {
+  var client = net.createConnection(connect).on('connect', function() {
 
     return client.write(String(id));
   });
