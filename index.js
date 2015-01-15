@@ -27,7 +27,6 @@ try {
  * @exports createServer
  * @function createServer
  * @param {Number|String} listen - listen type
- * @param {Object} [opt] - various options. Check README.md
  * @return {Object}
  */
 function createServer(listen, opt) {
@@ -40,8 +39,7 @@ function createServer(listen, opt) {
     keepalive: Number(options.keepalive) || 2000,
     callback: typeof options.callback == 'function' ? options.callback : false,
     http: false,
-    https: false,
-    console: Boolean(options.console)
+    https: false
   };
   if (typeof options.http == 'object') {
     my.http = {
@@ -123,21 +121,16 @@ module.exports.createServer = createServer;
  * @exports createClient
  * @function createClient
  * @param {Number|String} listen - listen type
- * @param {String} id - child id
- * @param {Object} [opt] - various options. Check README.md
+ * @param {String} id - child ids
  * @return {Object}
  */
-function createClient(connect, id, opt) {
+function createClient(connect, id) {
 
   if (!connect || typeof connect != 'object') {
     throw new TypeError('connect required');
   } else if (!id) {
     throw new TypeError('id required');
   }
-  var options = opt || Object.create(null);
-  var my = {
-    console: Boolean(options.console)
-  };
 
   var client = net.createConnection(connect).on('connect', function() {
 

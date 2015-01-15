@@ -45,7 +45,6 @@ var client = require('mamma').createClient;
  - `https` - **Object** Enable https interface [extra options](http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener) *(default "disabled")*
    - `port` - **Number** Set Web port *(default "3000")*
    - `host` - **String** Set Web host *(default "127.0.0.1")*
- - `console`- **Boolean** Display error event to console *(default "false")*
 
 ### createClient(connect,id,[options])
 
