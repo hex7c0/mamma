@@ -66,7 +66,7 @@ function createServer(listen, opt) {
           state: sock.readyState,
           beat: Date.now()
         };
-      } else if (buff.length > 1) {
+      } else if (buff.length > 1) { // set client id
         var _id = String(buff);
         hosts[_id] = {
           state: sock.readyState,
@@ -82,19 +82,13 @@ function createServer(listen, opt) {
           state: sock.readyState,
           beat: Date.now()
         };
-        if (my.callback !== false) {
-          my.callback(had_error, sock._id); // error hook
-        }
       }
-      return;
+      // error hook [with client id]
+      return my.callback !== false ? my.callback(had_error, sock._id) : null;
     });
-  });
-  server.on('error', function(err) {
+  }).on('error', function(err) {
 
-    if (my.console === true) {
-      console.error(err.message);
-    }
-    return;
+    return my.console === true ? console.error(err.message) : null;
   }).listen(listen);
 
   if (my.http || my.https) {
@@ -148,13 +142,9 @@ function createClient(connect, id, opt) {
     console: Boolean(options.console)
   };
 
-  var client = net.createConnection(connect);
-  client.on('error', function(err) {
+  var client = net.createConnection(connect).on('error', function(err) {
 
-    if (my.console === true) {
-      console.error(err.message);
-    }
-    return;
+    return my.console === true ? console.error(err.message) : null;
   }).on('connect', function() {
 
     return client.write(String(id));
