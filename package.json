@@ -1,0 +1,39 @@
+{
+  "version": "0.0.0",
+  "name": "mamma",
+  "description": "offers baby monitors which will provide peace of mind to the new mother",
+  "keywords": [
+    "keepalive",
+    "monitor"
+  ],
+  "preferGlobal": false,
+  "homepage": "http://supergiovane.tk/#/mamma",
+  "author": {
+    "name": "hex7c0",
+    "email": "hex7c0@gmail.com",
+    "url": "http://hex7c0.tk/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hex7c0/mamma.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hex7c0/mamma/issues",
+    "email": "hex7c0@gmail.com"
+  },
+  "main": "index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "~2.1",
+    "supertest": "~0.15"
+  },
+  "engines": {
+    "node": "^0.10"
+  },
+  "scripts": {
+    "prepublish": "npm prune",
+    "test": "mocha --bail --check-leaks test/"
+  },
+  "license": "GPLv3"
+}
