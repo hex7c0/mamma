@@ -40,13 +40,14 @@ var client = require('mamma').createClient;
  - `keepalive` - **Number** Set initialDelay (in milliseconds) to set the delay between the last data packet received and the first keepalive probe *(default "2000")*
  - `callback`- **Function** Set callback `close` event happen (return had_error,id) *(default "disabled")*
  - `http` - **Object** Enable http interface *(default "disabled")*
-   - `port` - **Boolean** Set Web port *(default "3000")*
-   - `host` - **Boolean** Set Web host *(default "127.0.0.1")*
+   - `port` - **Number** Set Web port *(default "3000")*
+   - `host` - **String** Set Web host *(default "127.0.0.1")*
  - `https` - **Object** Enable https interface [extra options](http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener) *(default "disabled")*
-   - `port` - **Boolean** Set Web port *(default "3000")*
-   - `host` - **Boolean** Set Web host *(default "127.0.0.1")*
+   - `port` - **Number** Set Web port *(default "3000")*
+   - `host` - **String** Set Web host *(default "127.0.0.1")*
+ - `console`- **Boolean** Display error event to console *(default "false")*
 
-### createClient(connect,id)
+### createClient(connect,id,[options])
 
 #### connect
 
@@ -55,7 +56,11 @@ var client = require('mamma').createClient;
 #### id
 
  - `id`- **String** Child id for callback *(default "required")*
- 
+
+#### options
+
+ - `console`- **Boolean** Display error event to console *(default "false")*
+
 ## Examples
 
 Take a look at my [examples](https://github.com/hex7c0/mamma/tree/master/examples)
