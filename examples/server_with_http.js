@@ -20,8 +20,12 @@ try {
   process.exit(1);
 }
 
-mamma.createServer(3000, {
+mamma.createServer(4000, {
+  callback: function(err, id) {
+
+    console.log(id);
+  },
   http: {
-    port: 3001
+    port: 4001
   }
 });
