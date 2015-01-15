@@ -42,7 +42,7 @@ function createServer(listen, opt) {
     callback: typeof options.callback == 'function' ? options.callback : false,
     http: false
   };
-  if (options.http) {
+  if (typeof options.http == 'object') {
     my.http = {
       port: Number(options.http.port) || 3000,
       host: String(options.http.host || '127.0.0.1')
