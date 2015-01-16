@@ -112,6 +112,7 @@ function createServer(listen, opt) {
     }
   }
 
+  server._hosts = hosts; // hosts reference
   return server;
 }
 module.exports.createServer = createServer;
