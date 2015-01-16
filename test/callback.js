@@ -42,7 +42,9 @@ describe('callback', function() {
     });
     var client = mamma.createClient({
       port: port
-    }, id);
+    }, id, {
+      autoReconnect: false
+    });
     setTimeout(function() {
 
       client.end();

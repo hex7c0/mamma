@@ -84,11 +84,13 @@ describe('tcp', function() {
 
       var m = mamma.createClient({
         port: port
-      }, 'ciao');
+      }, 'ciao', {
+        autoReconnect: false
+      });
       assert.ok(m.end);
       m.on('error', function(err) {
 
-        assert.equal(err.message, 'connect ECONNREFUSED');
+        assert.ok(/connect ECONNREFUSED/.test(err.message));
         done();
       });
     });
@@ -101,7 +103,9 @@ describe('tcp', function() {
       var s = mamma.createServer(port);
       var c = mamma.createClient({
         port: port
-      }, 'ciao');
+      }, 'should test client end', {
+        autoReconnect: false
+      });
       setTimeout(function() {
 
         c.end();
@@ -114,7 +118,9 @@ describe('tcp', function() {
       var s = mamma.createServer(port);
       var c = mamma.createClient({
         port: port
-      }, 'ciao');
+      }, 'should test server end', {
+        autoReconnect: false
+      });
       setTimeout(function() {
 
         s.close();
@@ -123,13 +129,15 @@ describe('tcp', function() {
         done();
       }, 1000);
     });
-    it('should test keepalive probe with 5000 timeout', function(done) {
+    it('should test keepalive probe with 10000 timeout', function(done) {
 
-      this.timeout(5000);
+      this.timeout(10000);
       var s = mamma.createServer(port);
       var c = mamma.createClient({
         port: port
-      }, 'ciao');
+      }, 'should test keepalive probe with 10000 timeout', {
+        autoReconnect: false
+      });
       setTimeout(function() {
 
         assert.equal(c.destroyed, false);
@@ -140,17 +148,21 @@ describe('tcp', function() {
           s.close();
           done();
         });
-      }, 4500);
+      }, 9900);
     });
     it('should test multiple client', function(done) {
 
       var s = mamma.createServer(port);
       var c1 = mamma.createClient({
         port: port
-      }, 'ciao1');
+      }, 'multiple1', {
+        autoReconnect: false
+      });
       var c2 = mamma.createClient({
         port: port
-      }, 'ciao2');
+      }, 'multiple2', {
+        autoReconnect: false
+      });
       setTimeout(function() {
 
         s.getConnections(function(err, count) {

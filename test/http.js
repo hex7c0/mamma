@@ -49,32 +49,37 @@ describe('http', function() {
 
     var c = mamma.createClient({
       port: port
-    }, 'ciao 1');
-    request.get(uri + '/').end(function(err, res) {
+    }, 'child 1', {
+      autoReconnect: false
+    });
+    setTimeout(function() {
 
-      assert.equal(err, null);
-      assert.equal(res.statusCode, 200);
-      var j = JSON.parse(res.text);
-      assert.equal(j['ciao 1'].state, 'open');
+      request.get(uri + '/').end(function(err, res) {
 
-      c.end();
-      setTimeout(function() {
+        assert.equal(err, null);
+        assert.equal(res.statusCode, 200);
+        var j = JSON.parse(res.text);
+        assert.equal(j['child 1'].state, 'open');
 
-        request.get(uri + '/').end(function(err, res) {
+        c.end();
+        setTimeout(function() {
 
-          assert.equal(err, null);
-          assert.equal(res.statusCode, 200);
-          var j = JSON.parse(res.text);
-          assert.equal(j['ciao 1'].state, 'closed');
-          done();
-        });
+          request.get(uri + '/').end(function(err, res) {
+
+            assert.equal(err, null);
+            assert.equal(res.statusCode, 200);
+            var j = JSON.parse(res.text);
+            assert.equal(j['child 1'].state, 'closed');
+            done();
+          });
+        }, 500);
+
       }, 500);
-
     });
   });
   it('should test child page', function(done) {
 
-    request.get(uri + '/ciao 1').end(function(err, res) {
+    request.get(uri + '/child 1').end(function(err, res) {
 
       assert.equal(err, null);
       assert.equal(res.statusCode, 200);
