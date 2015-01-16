@@ -27,6 +27,7 @@ try {
  * @exports createServer
  * @function createServer
  * @param {Number|String} listen - listen type
+ * @param {Object} [opt] - various options. Check README.md
  * @return {Object}
  */
 function createServer(listen, opt) {
@@ -121,20 +122,42 @@ module.exports.createServer = createServer;
  * @exports createClient
  * @function createClient
  * @param {Number|String} listen - listen type
- * @param {String} id - child ids
+ * @param {String} id - child id
+ * @param {Object} [opt] - various options. Check README.md
  * @return {Object}
  */
-function createClient(connect, id) {
+function createClient(connect, id, opt) {
 
   if (!connect || typeof connect != 'object') {
     throw new TypeError('connect required');
   } else if (!id) {
     throw new TypeError('id required');
   }
+  var options = opt || Object.create(null);
+  var my = {
+    autoReconnect: options.autoReconnect == false ? false : true,
+    maxRetries: Number(options.maxRetries) || true,
+    delay: Number(options.delay || 2000)
+  };
 
   var client = net.createConnection(connect).on('connect', function() {
 
     return client.write(String(id));
+  }).on('close', function() {
+
+    if (my.autoReconnect === true) {
+      if (my.maxRetries === true || --maxRetries > 0) {
+        setTimeout(function() {
+
+          if (connect.port !== undefined) { // tpc
+            client.connect(connect.port, connect.host);
+          } else { // unix socket
+            client.connect(connect.path);
+          }
+        }, my.delay);
+      }
+    }
+    return;
   });
 
   return client;
