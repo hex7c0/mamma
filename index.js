@@ -140,25 +140,34 @@ function createClient(connect, id, opt) {
     delay: Number(options.delay || 2000)
   };
 
+  function autoReconnect() {
+
+    if (my.maxRetries === true || --maxRetries > 0) {
+      setTimeout(function() {
+
+        if (connect.port !== undefined) { // tpc
+          client.connect(connect.port, connect.host);
+        } else { // unix socket
+          client.connect(connect.path);
+        }
+      }, my.delay);
+    }
+    return;
+  }
+
   var client = net.createConnection(connect).on('connect', function() {
 
     return client.write(String(id));
-  }).on('close', function() {
-
-    if (my.autoReconnect === true) {
-      if (my.maxRetries === true || --maxRetries > 0) {
-        setTimeout(function() {
-
-          if (connect.port !== undefined) { // tpc
-            client.connect(connect.port, connect.host);
-          } else { // unix socket
-            client.connect(connect.path);
-          }
-        }, my.delay);
-      }
-    }
-    return;
   });
+  if (my.autoReconnect) {
+    client.on('close', autoReconnect);
+  }
+  client.close = function() {
+
+    client.end();
+    client.removeListener('close', autoReconnect);
+    return;
+  };
 
   return client;
 }
