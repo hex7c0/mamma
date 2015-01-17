@@ -27,6 +27,8 @@ inside nodejs project
 var server = require('mamma').createServer;
 
 var client = require('mamma').createClient;
+
+var client = require('mamma').createBinding;
 ```
 
 ### createServer(listen,[options])
@@ -46,7 +48,7 @@ var client = require('mamma').createClient;
    - `port` - **Number** Set Web port *(default "3000")*
    - `host` - **String** Set Web host *(default "127.0.0.1")*
 
-### createClient(connect,id)
+### createClient(connect,id,[options])
 
 #### connect
 
@@ -55,6 +57,30 @@ var client = require('mamma').createClient;
 #### id
 
  - `id`- **String** Child id for callback *(default "required")*
+
+#### options
+
+ - `autoReconnect` - **Boolean** Set autoReconnect flag *(default "true")*
+ - `maxRetries`- **Number** Set maxRetries for autoReconnect logic (true for unlimited) *(default "true")*
+ - `delay` - **Number** Set millisecond delay from each try *(default "2000")*
+
+### createBinding(connect,id,[options])
+
+#### connect
+
+ - `connect`- **Object** [createConnection](http://nodejs.org/api/net.html#net_net_createconnection_options_connectionlistener) *(default "required")*
+
+#### id
+
+ - `id`- **String** Child id for callback *(default "required")*
+
+#### options
+
+ - `autoReconnect` - **Boolean** Set autoReconnect flag *(default "true")*
+ - `maxRetries`- **Number** Set maxRetries for autoReconnect logic (true for unlimited) *(default "true")*
+ - `delay` - **Number** Set millisecond delay from each try *(default "2000")*
+ - `keepalive` - **Number** Set initialDelay (in milliseconds) to set the delay between the last data packet received and the first keepalive probe *(default "2000")*
+ - `callback`- **Function** Set callback `close` event happen (return had_error,id) *(default "disabled")*
 
 ## Examples
 
