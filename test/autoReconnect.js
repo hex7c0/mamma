@@ -50,7 +50,7 @@ describe('autoReconnect', function() {
 
         s.close(function() {
 
-          console.log('here');
+          console.log('redis doesn\'t close server connection');
         });
         done();
       });
@@ -60,21 +60,21 @@ describe('autoReconnect', function() {
       });
     }, 2900);
   });
-  it('should test autoReconnect option after 3000ms', function(done) {
-
-    client.removeAllListeners('connect');
-    setTimeout(function() {
-
-      client.on('connect', function() {
-
-        s.close(done);
-      });
-      s = mamma.createServer(port).on('listening', function() {
-
-        console.log('server start');
-      });
-    }, 2900);
-  });
+  //  it('should test autoReconnect option after 3000ms', function(done) {
+  //
+  //    client.removeAllListeners('connect');
+  //    setTimeout(function() {
+  //
+  //      client.on('connect', function() {
+  //
+  //        s.close(done);
+  //      });
+  //      s = mamma.createServer(port).on('listening', function() {
+  //
+  //        console.log('server start');
+  //      });
+  //    }, 2900);
+  //  });
   it('should close client socket', function(done) {
 
     client.close();
