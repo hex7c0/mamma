@@ -1,3 +1,9 @@
+0.1.0 / 2015-01-17
+==================
+
+  * Add createBinding method
+  * Add autoReconnect for createClient and createBinding
+
 0.0.4 / 2015-01-15
 ==================
 
