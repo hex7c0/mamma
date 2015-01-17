@@ -27,7 +27,7 @@ try {
  */
 describe('autoReconnect', function() {
 
-  this.timeout(6000);
+  this.timeout(10000);
 
   var s;
   var port = 3004;
