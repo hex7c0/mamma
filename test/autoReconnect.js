@@ -48,7 +48,11 @@ describe('autoReconnect', function() {
 
       client.on('connect', function() {
 
-        s.close(done);
+        s.close(function() {
+
+          console.log('here');
+        });
+        done();
       });
       s = mamma.createServer(port).on('listening', function() {
 
