@@ -122,7 +122,8 @@ module.exports.createServer = createServer;
  * 
  * @exports createClient
  * @function createClient
- * @param {Number|String} listen - listen type
+ * @see http://nodejs.org/api/net.html#net_net_createconnection_options_connectionlistener
+ * @param {Object} connect - connect options
  * @param {String} id - child id
  * @param {Object} [opt] - various options. Check README.md
  * @return {Object}
@@ -138,7 +139,7 @@ function createClient(connect, id, opt) {
   var my = {
     autoReconnect: options.autoReconnect == false ? false : true,
     maxRetries: Number(options.maxRetries) || true,
-    delay: Number(options.delay || 2000)
+    delay: Number(options.delay) || 2000
   };
 
   function autoReconnect() {
@@ -165,11 +166,68 @@ function createClient(connect, id, opt) {
   }
   client.close = function() {
 
-    client.end();
     client.removeListener('close', autoReconnect);
-    return;
+    return client.end();
   };
 
   return client;
 }
 module.exports.createClient = createClient;
+
+/**
+ * createBinding
+ * 
+ * @exports createBinding
+ * @function createBinding
+ * @see http://nodejs.org/api/net.html#net_net_createconnection_options_connectionlistener
+ * @param {Object} connect - connect options
+ * @param {String} id - child id
+ * @param {Object} [opt] - various options. Check README.md
+ * @return {Object}
+ */
+function createBinding(connect, id, opt) {
+
+  if (!connect || typeof connect != 'object') {
+    throw new TypeError('connect required');
+  } else if (!id) {
+    throw new TypeError('id required');
+  }
+  var options = opt || Object.create(null);
+  var my = {
+    autoReconnect: options.autoReconnect == false ? false : true,
+    maxRetries: Number(options.maxRetries) || true,
+    delay: Number(options.delay) || 2000,
+    keepalive: Number(options.keepalive) || 2000,
+    callback: typeof options.callback == 'function' ? options.callback : false,
+  };
+
+  function closed(had_error) {
+
+    if (my.autoReconnect === true) {
+      if (my.maxRetries === true || --maxRetries > 0) {
+        setTimeout(function() {
+
+          if (connect.port !== undefined) { // tpc
+            client.connect(connect.port, connect.host);
+          } else { // unix socket
+            client.connect(connect.path);
+          }
+        }, my.delay);
+      }
+    }
+    // error hook [with client id]
+    return my.callback !== false ? my.callback(had_error, id) : null;
+  }
+
+  var client = net.createConnection(connect);
+  client.on('close', closed);
+  client.setKeepAlive(true, my.keepalive);
+  client.close = function() {
+
+    client.removeListener('close', closed);
+    return client.end();
+  };
+
+  return client;
+}
+module.exports.createBinding = createBinding;
