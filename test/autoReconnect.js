@@ -33,7 +33,7 @@ describe('autoReconnect', function() {
   var port = 3004;
   var client = mamma.createClient({
     port: port
-  }).on('error', function() {
+  }, 'autoReconnect').on('error', function() {
 
     // pass
   });
