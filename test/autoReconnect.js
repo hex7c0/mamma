@@ -33,10 +33,12 @@ describe('autoReconnect', function() {
   var port = 3004;
   var client = mamma.createClient({
     port: port
-  }, 'autoReconnect').on('error', function(e) {
+  }, 'autoReconnect', {
+    autoReconnect: true,
+    delay: 1000
+  }).on('error', function() {
 
     // pass
-    console.log(e.message);
   });
 
   it('should test autoReconnect option after 3000ms', function(done) {
@@ -46,8 +48,7 @@ describe('autoReconnect', function() {
 
       client.on('connect', function() {
 
-        s.close();
-        done();
+        s.close(done);
       });
       s = mamma.createServer(port).on('listening', function() {
 
@@ -62,8 +63,7 @@ describe('autoReconnect', function() {
 
       client.on('connect', function() {
 
-        s.close();
-        done();
+        s.close(done);
       });
       s = mamma.createServer(port).on('listening', function() {
 
