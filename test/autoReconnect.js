@@ -27,7 +27,7 @@ try {
  */
 describe('autoReconnect', function() {
 
-  this.timeout(10000);
+  this.timeout(6000);
 
   var s;
   var port = 3004;
@@ -37,32 +37,37 @@ describe('autoReconnect', function() {
 
     // pass
   });
-  client.removeAllListeners('connect');
 
   it('should test autoReconnect option after 3000ms', function(done) {
 
+    client.removeAllListeners('connect');
     setTimeout(function() {
 
       client.on('connect', function() {
 
         s.close();
-        client.removeAllListeners('connect');
         done();
       });
-      s = mamma.createServer(port);
+      s = mamma.createServer(port).on('listening', function() {
+
+        console.log('server start');
+      });
     }, 2900);
   });
   it('should test autoReconnect option after 3000ms', function(done) {
 
+    client.removeAllListeners('connect');
     setTimeout(function() {
 
       client.on('connect', function() {
 
         s.close();
-        client.removeAllListeners('connect');
         done();
       });
-      s = mamma.createServer(port);
+      s = mamma.createServer(port).on('listening', function() {
+
+        console.log('server start');
+      });
     }, 2900);
   });
   it('should close client socket', function(done) {
