@@ -33,9 +33,6 @@ describe('autoReconnect', function() {
   var port = 3004;
   var client = mamma.createClient({
     port: port
-  }, 'autoReconnect', {
-    autoReconnect: true,
-    delay: 1000
   }).on('error', function() {
 
     // pass
