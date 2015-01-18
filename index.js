@@ -85,7 +85,12 @@ function createServer(listen, opt) {
       // error hook [with client id]
       return my.callback !== false ? my.callback(had_error, sock._id) : null;
     });
-  }).listen(listen);
+  });
+  if (typeof listen === 'string' && opt.host !== undefined) { // tpc only
+    server.listen(listen, opt.host);
+  } else {
+    server.listen(listen);
+  }
 
   if (my.http || my.https) {
     var web = function(req, res) {
