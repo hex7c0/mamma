@@ -86,7 +86,7 @@ function createServer(listen, opt) {
       return my.callback !== false ? my.callback(had_error, sock._id) : null;
     });
   });
-  if (typeof listen === 'string' && opt.host !== undefined) { // tpc only
+  if (opt.host !== undefined && typeof listen === 'string') { // tpc only
     server.listen(listen, opt.host);
   } else {
     server.listen(listen);
