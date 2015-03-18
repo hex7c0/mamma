@@ -32,11 +32,12 @@ describe('http', function() {
         port: port + 1
       }
     });
+    done();
   });
 
   it('should test empty page', function(done) {
 
-    request.get(uri + '/').end(function(err, res) {
+    request.get(uri).end(function(err, res) {
 
       assert.equal(err, null);
       assert.equal(res.statusCode, 200);
