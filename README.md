@@ -1,8 +1,9 @@
 # [mamma](http://supergiovane.tk/#/mamma)
 
-[![NPM version](https://badge.fury.io/js/mamma.svg)](http://badge.fury.io/js/mamma)
-[![Build Status](https://travis-ci.org/hex7c0/mamma.svg)](https://travis-ci.org/hex7c0/mamma)
-[![Dependency Status](https://david-dm.org/hex7c0/mamma/status.svg)](https://david-dm.org/hex7c0/mamma)
+[![NPM version](https://img.shields.io/npm/v/mamma.svg)](https://www.npmjs.com/package/mamma)
+[![Linux Status](https://img.shields.io/travis/hex7c0/mamma.svg?label=linux)](https://travis-ci.org/hex7c0/mamma)
+[![Dependency Status](https://img.shields.io/david/hex7c0/mamma.svg)](https://david-dm.org/hex7c0/mamma)
+[![Coveralls](https://img.shields.io/coveralls/hex7c0/mamma.svg)](https://coveralls.io/r/hex7c0/mamma)
 
 Offers baby monitors which will provide peace of mind to the new mother.
 Open TCP or Unix domain socket and listen child [KA](https://en.wikipedia.org/wiki/Keepalive#TCP_keepalive) keepalive noises.
@@ -28,10 +29,10 @@ var server = require('mamma').createServer;
 
 var client = require('mamma').createClient;
 
-var client = require('mamma').createBinding;
+var bind = require('mamma').createBinding; // bind to existing TCP server
 ```
 
-### createServer(listen,[options])
+### createServer(listen [, options])
 
 #### listen
 
@@ -40,7 +41,7 @@ var client = require('mamma').createBinding;
 #### options
 
  - `keepalive` - **Number** Set initialDelay (in milliseconds) to set the delay between the last data packet received and the first keepalive probe *(default "2000")*
- - `callback`- **Function** Set callback `close` event happen (return had_error,id) *(default "disabled")*
+ - `callback`- **Function** Set callback when `close` event happen (return had_error,id) *(default "disabled")*
  - `http` - **Object** Enable http interface *(default "disabled")*
    - `port` - **Number** Set Web port *(default "3000")*
    - `host` - **String** Set Web host *(default "127.0.0.1")*
@@ -49,7 +50,7 @@ var client = require('mamma').createBinding;
    - `host` - **String** Set Web host *(default "127.0.0.1")*
  - `host` - **String** If the host is omitted, the server will accept connections directed to any IPv4 address (TCP only) *(default "omitted")*
 
-### createClient(connect,id,[options])
+### createClient(connect, id [, options])
 
 #### connect
 
@@ -65,7 +66,7 @@ var client = require('mamma').createBinding;
  - `maxRetries`- **Number** Set maxRetries for autoReconnect logic (true for unlimited) *(default "true")*
  - `delay` - **Number** Set millisecond delay from each try *(default "2000")*
 
-### createBinding(connect,id,[options])
+### createBinding(connect, id [, options])
 
 #### connect
 
@@ -85,6 +86,6 @@ var client = require('mamma').createBinding;
 
 ## Examples
 
-Take a look at my [examples](https://github.com/hex7c0/mamma/tree/master/examples)
+Take a look at my [examples](examples)
 
-### [License GPLv3](http://opensource.org/licenses/GPL-3.0)
+### [License GPLv3](LICENSE)
