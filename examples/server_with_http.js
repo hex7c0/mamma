@@ -12,13 +12,7 @@
 /*
  * initialize module
  */
-// import
-try {
-  var mamma = require('..'); // use require('mamma')
-} catch (MODULE_NOT_FOUND) {
-  console.error(MODULE_NOT_FOUND);
-  process.exit(1);
-}
+var mamma = require('..'); // use require('mamma') instead
 
 mamma.createServer(4000, {
   callback: function(err, id) {
@@ -29,3 +23,6 @@ mamma.createServer(4000, {
     port: 4001
   }
 });
+
+console.log('starting "mamma" TCP server on port 4000');
+console.log('starting "mamma" HTTP server on port 4001');
