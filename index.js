@@ -2,9 +2,8 @@
 /**
  * @file mamma main
  * @module mamma
- * @package mamma
  * @subpackage main
- * @version 0.0.0
+ * @version 0.2.0
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -13,14 +12,11 @@
 /*
  * initialize module
  */
-// import
-try {
-  var net = require('net');
-} catch (MODULE_NOT_FOUND) {
-  console.error(MODULE_NOT_FOUND);
-  process.exit(1);
-}
+var net = require('net');
 
+/*
+ * functions
+ */
 /**
  * createServer
  * 
@@ -60,7 +56,7 @@ function createServer(listen, opt) {
     sock.setKeepAlive(true, my.keepalive); // https://en.wikipedia.org/wiki/Keepalive
     sock.on('data', function(buff) {
 
-      if (sock._id !== undefined) {
+      if (sock._id) {
         hosts[sock._id] = {
           state: sock.readyState,
           beat: Date.now()
@@ -74,9 +70,10 @@ function createServer(listen, opt) {
         sock._id = _id;
       }
       return;
+
     }).on('close', function(had_error) {
 
-      if (sock._id !== undefined) {
+      if (sock._id) {
         hosts[sock._id] = {
           state: sock.readyState,
           beat: Date.now()
@@ -86,7 +83,8 @@ function createServer(listen, opt) {
       return my.callback !== false ? my.callback(had_error, sock._id) : null;
     });
   });
-  if (options.host !== undefined && typeof listen === 'number') { // tpc only
+
+  if (options.host && typeof listen === 'number') { // tpc only
     server.listen(listen, options.host);
   } else {
     server.listen(listen);
@@ -112,8 +110,8 @@ function createServer(listen, opt) {
       require('http').createServer(web).listen(my.http.port, my.http.host);
     }
     if (my.https) {
-      require('https').createServer(my.https, web)
-          .listen(my.https.port, my.https.host);
+      require('https').createServer(my.https, web).listen(my.https.port,
+        my.https.host);
     }
   }
 
@@ -152,7 +150,7 @@ function createClient(connect, id, opt) {
     if (my.maxRetries === true || --maxRetries > 0) {
       setTimeout(function() {
 
-        if (connect.port !== undefined) { // tpc
+        if (connect.port) { // tpc
           client.connect(connect.port, connect.host);
         } else { // unix socket
           client.connect(connect.path);
@@ -212,7 +210,7 @@ function createBinding(connect, id, opt) {
       if (my.maxRetries === true || --maxRetries > 0) {
         setTimeout(function() {
 
-          if (connect.port !== undefined) { // tpc
+          if (connect.port) { // tpc
             client.connect(connect.port, connect.host);
           } else { // unix socket
             client.connect(connect.path);
