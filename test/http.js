@@ -2,7 +2,6 @@
 /**
  * @file http test
  * @module mamma
- * @package mamma
  * @subpackage test
  * @version 0.0.1
  * @author hex7c0 <hex7c0@gmail.com>
@@ -13,15 +12,9 @@
 /*
  * initialize module
  */
-// import
-try {
-  var mamma = require('..');
-  var assert = require('assert');
-  var request = require('superagent');
-} catch (MODULE_NOT_FOUND) {
-  console.error(MODULE_NOT_FOUND);
-  process.exit(1);
-}
+var mamma = require('..');
+var assert = require('assert');
+var request = require('superagent');
 
 /*
  * test module
@@ -29,11 +22,16 @@ try {
 describe('http', function() {
 
   var port = 3000;
-  var uri = 'http://127.0.0.1:3001';
-  var server = mamma.createServer(port, {
-    http: {
-      port: port + 1
-    }
+  var uri = 'http://127.0.0.1:3001/';
+  var server;
+
+  before(function(done) {
+
+    server = mamma.createServer(port, {
+      http: {
+        port: port + 1
+      }
+    });
   });
 
   it('should test empty page', function(done) {
@@ -55,7 +53,7 @@ describe('http', function() {
     });
     setTimeout(function() {
 
-      request.get(uri + '/').end(function(err, res) {
+      request.get(uri).end(function(err, res) {
 
         assert.equal(err, null);
         assert.equal(res.statusCode, 200);
@@ -65,7 +63,7 @@ describe('http', function() {
         c.end();
         setTimeout(function() {
 
-          request.get(uri + '/').end(function(err, res) {
+          request.get(uri).end(function(err, res) {
 
             assert.equal(err, null);
             assert.equal(res.statusCode, 200);
@@ -80,7 +78,7 @@ describe('http', function() {
   });
   it('should test child page', function(done) {
 
-    request.get(uri + '/child 1').end(function(err, res) {
+    request.get(uri + 'child 1').end(function(err, res) {
 
       assert.equal(err, null);
       assert.equal(res.statusCode, 200);
@@ -91,7 +89,7 @@ describe('http', function() {
   });
   it('should test another child page', function(done) {
 
-    request.get(uri + '/ciao222').end(function(err, res) {
+    request.get(uri + 'ciao222').end(function(err, res) {
 
       assert.equal(err, null);
       assert.equal(res.statusCode, 404);

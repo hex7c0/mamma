@@ -2,7 +2,6 @@
 /**
  * @file binding test
  * @module mamma
- * @package mamma
  * @subpackage test
  * @version 0.0.1
  * @author hex7c0 <hex7c0@gmail.com>
@@ -13,14 +12,8 @@
 /*
  * initialize module
  */
-// import
-try {
-  var mamma = require('..');
-  var assert = require('assert');
-} catch (MODULE_NOT_FOUND) {
-  console.error(MODULE_NOT_FOUND);
-  process.exit(1);
-}
+var mamma = require('..');
+var assert = require('assert');
 
 /*
  * test module

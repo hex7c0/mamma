@@ -2,7 +2,6 @@
 /**
  * @file autoReconnect test
  * @module mamma
- * @package mamma
  * @subpackage test
  * @version 0.0.1
  * @author hex7c0 <hex7c0@gmail.com>
@@ -13,14 +12,8 @@
 /*
  * initialize module
  */
-// import
-try {
-  var mamma = require('..');
-  var assert = require('assert');
-} catch (MODULE_NOT_FOUND) {
-  console.error(MODULE_NOT_FOUND);
-  process.exit(1);
-}
+var mamma = require('..');
+var assert = require('assert');
 
 /*
  * test module
@@ -57,21 +50,21 @@ describe('autoReconnect', function() {
       });
     }, 2900);
   });
-  //  it('should test autoReconnect option after 3000ms', function(done) {
+  // it('should test autoReconnect option after 3000ms', function(done) {
   //
-  //    client.removeAllListeners('connect');
-  //    setTimeout(function() {
+  // client.removeAllListeners('connect');
+  // setTimeout(function() {
   //
-  //      client.on('connect', function() {
+  // client.on('connect', function() {
   //
-  //        s.close(done);
-  //      });
-  //      s = mamma.createServer(port).on('listening', function() {
+  // s.close(done);
+  // });
+  // s = mamma.createServer(port).on('listening', function() {
   //
-  //        console.log('server start');
-  //      });
-  //    }, 2900);
-  //  });
+  // console.log('server start');
+  // });
+  // }, 2900);
+  // });
   it('should close client socket', function(done) {
 
     client.close();

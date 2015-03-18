@@ -2,7 +2,6 @@
 /**
  * @file tcp test
  * @module mamma
- * @package mamma
  * @subpackage test
  * @version 0.0.1
  * @author hex7c0 <hex7c0@gmail.com>
@@ -13,14 +12,8 @@
 /*
  * initialize module
  */
-// import
-try {
-  var mamma = require('..');
-  var assert = require('assert');
-} catch (MODULE_NOT_FOUND) {
-  console.error(MODULE_NOT_FOUND);
-  process.exit(1);
-}
+var mamma = require('..');
+var assert = require('assert');
 
 /*
  * test module
@@ -37,8 +30,8 @@ describe('tcp', function() {
         mamma.createServer();
       } catch (err) {
         assert.equal(err.message, 'listen required');
+        done();
       }
-      done();
     });
     it('should return Server obj', function(done) {
 
@@ -57,19 +50,19 @@ describe('tcp', function() {
         mamma.createClient();
       } catch (err) {
         assert.equal(err.message, 'connect required');
+        done();
       }
-      done();
     });
-    it('should return an Error because "connect" isn\'t an Object', function(
-                                                                             done) {
+    it('should return an Error because "connect" isn\'t an Object',
+      function(done) {
 
-      try {
-        mamma.createClient('ciao');
-      } catch (err) {
-        assert.equal(err.message, 'connect required');
-      }
-      done();
-    });
+        try {
+          mamma.createClient('ciao');
+        } catch (err) {
+          assert.equal(err.message, 'connect required');
+          done();
+        }
+      });
     it('should return an Error because no "id"', function(done) {
 
       try {
@@ -78,8 +71,8 @@ describe('tcp', function() {
         });
       } catch (err) {
         assert.equal(err.message, 'id required');
+        done();
       }
-      done();
     });
     it('should return Client obj and ECONNREFUSED', function(done) {
 
