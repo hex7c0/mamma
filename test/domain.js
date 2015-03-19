@@ -1,6 +1,6 @@
 'use strict';
 /**
- * @file tcp test
+ * @file domain test
  * @module mamma
  * @subpackage test
  * @version 0.0.1
