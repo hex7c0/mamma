@@ -96,7 +96,8 @@ describe('https', function() {
 
     request.get(uri + 'ciao222').end(function(err, res) {
 
-      assert.equal(err, null);
+      assert.notEqual(err, null);
+      assert.equal(err.response.statusCode, 404);
       assert.equal(res.statusCode, 404);
       assert.equal(res.text, '');
       done();
