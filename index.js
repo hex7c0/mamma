@@ -34,17 +34,17 @@ function createServer(listen, opt) {
   var options = opt || Object.create(null);
   var my = {
     keepalive: Number(options.keepalive) || 2000,
-    callback: typeof options.callback == 'function' ? options.callback : false,
+    callback: typeof options.callback === 'function' ? options.callback : false,
     http: false,
     https: false
   };
-  if (typeof options.http == 'object') {
+  if (typeof options.http === 'object') {
     my.http = {
       port: Number(options.http.port) || 3000,
       host: String(options.http.host || '127.0.0.1')
     };
   }
-  if (typeof options.https == 'object') {
+  if (typeof options.https === 'object') {
     my.https = options.https;
     my.https.port = Number(options.https.port) || 3000;
     my.https.host = String(options.https.host || '127.0.0.1');
@@ -133,14 +133,14 @@ module.exports.createServer = createServer;
  */
 function createClient(connect, id, opt) {
 
-  if (!connect || typeof connect != 'object') {
+  if (!connect || typeof connect !== 'object') {
     throw new TypeError('connect required');
   } else if (!id) {
     throw new TypeError('id required');
   }
   var options = opt || Object.create(null);
   var my = {
-    autoReconnect: options.autoReconnect == false ? false : true,
+    autoReconnect: options.autoReconnect === false ? false : true,
     maxRetries: Number(options.maxRetries) || true,
     delay: Number(options.delay) || 2000
   };
@@ -155,6 +155,7 @@ function createClient(connect, id, opt) {
         } else { // unix socket
           client.connect(connect.path);
         }
+        return;
       }, my.delay);
     }
     return;
@@ -190,18 +191,18 @@ module.exports.createClient = createClient;
  */
 function createBinding(connect, id, opt) {
 
-  if (!connect || typeof connect != 'object') {
+  if (!connect || typeof connect !== 'object') {
     throw new TypeError('connect required');
   } else if (!id) {
     throw new TypeError('id required');
   }
   var options = opt || Object.create(null);
   var my = {
-    autoReconnect: options.autoReconnect == false ? false : true,
+    autoReconnect: options.autoReconnect === false ? false : true,
     maxRetries: Number(options.maxRetries) || true,
     delay: Number(options.delay) || 2000,
     keepalive: Number(options.keepalive) || 2000,
-    callback: typeof options.callback == 'function' ? options.callback : false,
+    callback: typeof options.callback === 'function' ? options.callback : false,
   };
 
   function closed(had_error) {
@@ -215,6 +216,7 @@ function createBinding(connect, id, opt) {
           } else { // unix socket
             client.connect(connect.path);
           }
+          return;
         }, my.delay);
       }
     }
