@@ -1,4 +1,4 @@
-# [mamma](http://supergiovane.tk/#/mamma)
+# [mamma](https://github.com/hex7c0/mamma)
 
 [![NPM version](https://img.shields.io/npm/v/mamma.svg)](https://www.npmjs.com/package/mamma)
 [![Linux Status](https://img.shields.io/travis/hex7c0/mamma.svg?label=linux)](https://travis-ci.org/hex7c0/mamma)
