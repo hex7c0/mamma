@@ -37,6 +37,8 @@ before_install:
   - "test ! -d node_modules || npm rebuild"
 script: "npm run-script test-cov"
 after_script: "npm i coveralls@~2.11 && cat ./coverage/lcov.info | coveralls"
+services:
+  - mongodb
 notifications:
   email:
     on_success: never
