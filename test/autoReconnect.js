@@ -77,7 +77,7 @@ describe('autoReconnect', function() {
 
       s.getConnections(function(err, count) {
 
-        assert.equal(err, null);
+        assert.ifError(err);
         assert.equal(count, 0);
         done();
       });

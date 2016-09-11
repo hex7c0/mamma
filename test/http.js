@@ -39,7 +39,7 @@ describe('http', function() {
 
     request.get(uri).end(function(err, res) {
 
-      assert.equal(err, null);
+      assert.ifError(err);
       assert.equal(res.statusCode, 200);
       assert.equal(res.text, '{}');
       done();
@@ -56,7 +56,7 @@ describe('http', function() {
 
       request.get(uri).end(function(err, res) {
 
-        assert.equal(err, null);
+        assert.ifError(err);
         assert.equal(res.statusCode, 200);
         var j = JSON.parse(res.text);
         assert.equal(j['child 1'].state, 'open');
@@ -66,7 +66,7 @@ describe('http', function() {
 
           request.get(uri).end(function(err, res) {
 
-            assert.equal(err, null);
+            assert.ifError(err);
             assert.equal(res.statusCode, 200);
             var j = JSON.parse(res.text);
             assert.equal(j['child 1'].state, 'closed');
@@ -81,7 +81,7 @@ describe('http', function() {
 
     request.get(uri + 'child 1').end(function(err, res) {
 
-      assert.equal(err, null);
+      assert.ifError(err);
       assert.equal(res.statusCode, 200);
       var j = JSON.parse(res.text);
       assert.equal(j.state, 'closed');
