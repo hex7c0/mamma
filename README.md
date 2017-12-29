@@ -1,7 +1,7 @@
 # [mamma](https://github.com/hex7c0/mamma)
 
 [![NPM version](https://img.shields.io/npm/v/mamma.svg)](https://www.npmjs.com/package/mamma)
-[![Linux Status](https://img.shields.io/travis/hex7c0/mamma.svg?label=linux)](https://travis-ci.org/hex7c0/mamma)
+[![Linux Status](https://img.shields.io/travis/hex7c0/mamma.svg?label=linux-osx)](https://travis-ci.org/hex7c0/mamma)
 [![Dependency Status](https://img.shields.io/david/hex7c0/mamma.svg)](https://david-dm.org/hex7c0/mamma)
 [![Coveralls](https://img.shields.io/coveralls/hex7c0/mamma.svg)](https://coveralls.io/r/hex7c0/mamma)
 

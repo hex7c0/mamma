@@ -14,5 +14,5 @@
 var mamma = require('..'); // use require('mamma') instead
 
 mamma.createClient({
-  port: 3000, // connect to server.js example
-}, 'child 1');
+  port: 4000, // connect to server.js example
+}, 'child_1');
