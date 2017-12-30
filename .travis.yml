@@ -15,7 +15,6 @@ matrix:
     - env: "NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/nightly"
 os:
   - linux
-  - osx
 cache:
   directories:
     - node_modules
@@ -24,7 +23,7 @@ before_install:
   - "test ! -d node_modules || npm rebuild"
 script: "npm run-script test-cov"
 after_script: "npm i coveralls@~3 && cat ./coverage/lcov.info | coveralls"
-services:	
+services:
   - mongodb
 notifications:
   email:
