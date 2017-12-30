@@ -26,7 +26,7 @@
   "devDependencies": {
     "istanbul": "~0.4",
     "mocha": "~4.1",
-    "superagent": "~3.8"
+    "superagent": "3.4.4"
   },
   "engines": {
     "node": ">=4"
