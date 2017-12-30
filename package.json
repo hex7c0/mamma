@@ -34,7 +34,7 @@
   "scripts": {
     "prepare": "npm prune",
     "test": "mocha --bail --check-leaks --exit",
-    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly"
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --exit --report lcovonly"
   },
   "license": "GPL-3.0"
 }
