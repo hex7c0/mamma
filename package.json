@@ -25,7 +25,7 @@
   "dependencies": {},
   "devDependencies": {
     "istanbul": "~0.4",
-    "mocha": "3.2.0",
+    "mocha": "~4.1",
     "superagent": "~3.8"
   },
   "engines": {
@@ -33,7 +33,7 @@
   },
   "scripts": {
     "prepare": "npm prune",
-    "test": "mocha --bail --check-leaks",
+    "test": "mocha --bail --check-leaks --exit",
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly"
   },
   "license": "GPL-3.0"
